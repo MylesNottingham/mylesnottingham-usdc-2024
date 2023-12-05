@@ -96,8 +96,8 @@ const canneryRowIn = [
     }
   ]
 
-  /** Yet another input object */
-  const roughingItIn = [
+/** Yet another input object */
+const roughingItIn = [
     {
         "Title": "Roughing It",
         "ISBN": "9780520020184",
@@ -121,7 +121,14 @@ const canneryRowIn = [
     }
   ]
 
-/** Example output object */
+/** Array of input objects */
+const booksIn = [
+    twentyLeaguesIn[0],
+    canneryRowIn[0],
+    roughingItIn[0]
+]
+
+/** Output object for tests 1 & 2 */
 const twentyLeaguesOut = {
     "SearchTerm": "the",
     "Results": [
@@ -133,7 +140,7 @@ const twentyLeaguesOut = {
     ]
 }
 
-/** Output object for test three */
+/** Output object for tests 3 & 4 */
 const twentyLeaguesTwoOut = {
     "SearchTerm": "and",
     "Results": [
@@ -146,6 +153,18 @@ const twentyLeaguesTwoOut = {
             "ISBN": "9780000528531",
             "Page": 31,
             "Line": 10
+        }
+    ]
+}
+
+/** Output object for tests 5 & 6 */
+const canneryRowOut = {
+    "SearchTerm": "California",
+    "Results": [
+        {
+            "ISBN": "9780140187373",
+            "Page": 1,
+            "Line": 1
         }
     ]
 }
@@ -205,4 +224,24 @@ if (test4result.Results.length == 2) {
     console.log("FAIL: Test 4");
     console.log("Expected:", twentyLeaguesTwoOut.Results.length);
     console.log("Received:", test4result.Results.length);
+}
+
+/** Checks that a known single hit in an array of books returns the correct result. */
+const test5result = findSearchTermInBooks("California", booksIn);
+if (JSON.stringify(canneryRowOut) === JSON.stringify(test5result)) {
+    console.log("PASS: Test 5");
+} else {
+    console.log("FAIL: Test 5");
+    console.log("Expected:", canneryRowOut);
+    console.log("Received:", test5result);
+}
+
+/** Checks that a known single hit in an array of books returns the correct number of results. */
+const test6result = findSearchTermInBooks("California", booksIn);
+if (test6result.Results.length == 1) {
+    console.log("PASS: Test 6");
+} else {
+    console.log("FAIL: Test 6");
+    console.log("Expected:", canneryRowOut.Results.length);
+    console.log("Received:", test6result.Results.length);
 }
