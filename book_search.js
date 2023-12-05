@@ -71,6 +71,56 @@ const twentyLeaguesIn = [
     }
 ]
 
+/** Another input object */
+const canneryRowIn = [
+    {
+        "Title": "Cannery Row",
+        "ISBN": "9780140187373",
+        "Content": [
+            {
+                "Page": 1,
+                "Line": 1,
+                "Text": "Cannery Row in Monterey in California is a poem, a stink, a"
+            },
+            {
+                "Page": 1,
+                "Line": 2,
+                "Text": "grating noise, a quality of light, a tone, a habit, a nostalgia, a"
+            },
+            {
+                "Page": 1,
+                "Line": 3,
+                "Text": "dream. Cannery Row is the gathered and scattered, tin and"
+            }
+        ]
+    }
+  ]
+
+  /** Yet another input object */
+  const roughingItIn = [
+    {
+        "Title": "Roughing It",
+        "ISBN": "9780520020184",
+        "Content": [
+            {
+                "Page": 1,
+                "Line": 1,
+                "Text": "My brother had just been appointed Secretary of Nevada Territory"
+            },
+            {
+                "Page": 1,
+                "Line": 2,
+                "Text": "-- an office of such majesty that it concentrated in itself the"
+            },
+            {
+                "Page": 1,
+                "Line": 3,
+                "Text": "duties and dignities of Treasurer, Comptroller, Secretary of State,"
+            }
+        ]
+    }
+  ]
+
 /** Example output object */
 const twentyLeaguesOut = {
     "SearchTerm": "the",
