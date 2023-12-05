@@ -121,12 +121,24 @@ const roughingItIn = [
     }
   ]
 
+/** No content input object */
+const noContentIn = [
+    {
+        "Title": "Blank",
+        "ISBN": "000000",
+        "Content": []
+    }
+  ]
+
 /** Array of input objects */
 const booksIn = [
     twentyLeaguesIn[0],
     canneryRowIn[0],
     roughingItIn[0]
 ]
+
+/** No books input object */
+const noBooksIn = []
 
 /** Output object for tests 1 & 2 */
 const twentyLeaguesOut = {
@@ -333,4 +345,24 @@ if (JSON.stringify(booksTwoOut) === JSON.stringify(test11result)) {
     console.log("FAIL: Test 11");
     console.log("Expected:", booksTwoOut);
     console.log("Received:", test11result);
+}
+
+/** Will work with a book with no content */
+const test12result = findSearchTermInBooks("and", noContentIn);
+if (test12result.Results.length == 0) {
+    console.log("PASS: Test 12");
+} else {
+    console.log("FAIL: Test 12");
+    console.log("Expected:", 0);
+    console.log("Received:", test12result.Results.length);
+}
+
+/** Will work with a an array with no books */
+const test13result = findSearchTermInBooks("and", noBooksIn);
+if (test13result.Results.length == 0) {
+    console.log("PASS: Test 13");
+} else {
+    console.log("FAIL: Test 13");
+    console.log("Expected:", 0);
+    console.log("Received:", test13result.Results.length);
 }
