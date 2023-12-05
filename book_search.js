@@ -1,33 +1,49 @@
-/** 
+/**
  * RECOMMENDATION
- * 
+ *
  * To test your code, you should open "tester.html" in a web browser.
  * You can then use the "Developer Tools" to see the JavaScript console.
  * There, you will see the results unit test execution. You are welcome
  * to run the code any way you like, but this is similar to how we will
  * run your code submission.
- * 
- * The Developer Tools in Chrome are available under the "..." menu, 
- * futher hidden under the option "More Tools." In Firefox, they are 
- * under the hamburger (three horizontal lines), also hidden under "More Tools." 
+ *
+ * The Developer Tools in Chrome are available under the "..." menu,
+ * futher hidden under the option "More Tools." In Firefox, they are
+ * under the hamburger (three horizontal lines), also hidden under "More Tools."
  */
 
 /**
  * Searches for matches in scanned text.
- * @param {string} searchTerm - The word or term we're searching for. 
+ * @param {string} searchTerm - The word or term we're searching for.
  * @param {JSON} scannedTextObj - A JSON object representing the scanned text.
  * @returns {JSON} - Search results.
- * */ 
- function findSearchTermInBooks(searchTerm, scannedTextObj) {
-    /** You will need to implement your search and 
-     * return the appropriate object here. */
+ */
 
-    var result = {
-        "SearchTerm": "",
-        "Results": []
+function findSearchTermInBooks(searchTerm, scannedTextObj) {
+    /** You will need to implement your search and
+      * return the appropriate object here. */
+
+    const matches = [];
+
+    scannedTextObj.forEach(book => {
+        book.Content.forEach(content => {
+            if (content.Text.includes(searchTerm)) {
+                const match = {
+                    "ISBN": book.ISBN,
+                    "Page": content.Page,
+                    "Line": content.Line
+                };
+                matches.push(match);
+            }
+        });
+    });
+
+    const result = {
+        "SearchTerm": searchTerm,
+        "Results": matches
     };
-    
-    return result; 
+
+    return result;
 }
 
 /** Example input object. */
@@ -50,12 +66,69 @@ const twentyLeaguesIn = [
                 "Page": 31,
                 "Line": 10,
                 "Text": "eyes were, I asked myself how he had managed to see, and"
-            } 
-        ] 
+            }
+        ]
     }
 ]
-    
-/** Example output object */
+
+/** Another input object */
+const canneryRowIn = [
+    {
+        "Title": "Cannery Row",
+        "ISBN": "9780140187373",
+        "Content": [
+            {
+                "Page": 1,
+                "Line": 1,
+                "Text": "Cannery Row in Monterey in California is a poem, a stink, a"
+            },
+            {
+                "Page": 1,
+                "Line": 2,
+                "Text": "grating noise, a quality of light, a tone, a habit, a nostalgia, a"
+            },
+            {
+                "Page": 1,
+                "Line": 3,
+                "Text": "dream. Cannery Row is the gathered and scattered, tin and"
+            }
+        ]
+    }
+  ]
+
+/** Yet another input object */
+const roughingItIn = [
+    {
+        "Title": "Roughing It",
+        "ISBN": "9780520020184",
+        "Content": [
+            {
+                "Page": 1,
+                "Line": 1,
+                "Text": "My brother had just been appointed Secretary of Nevada Territory"
+            },
+            {
+                "Page": 1,
+                "Line": 2,
+                "Text": "-- an office of such majesty that it concentrated in itself the"
+            },
+            {
+                "Page": 1,
+                "Line": 3,
+                "Text": "duties and dignities of Treasurer, Comptroller, Secretary of State,"
+            }
+        ]
+    }
+  ]
+
+/** Array of input objects */
+const booksIn = [
+    twentyLeaguesIn[0],
+    canneryRowIn[0],
+    roughingItIn[0]
+]
+
+/** Output object for tests 1 & 2 */
 const twentyLeaguesOut = {
     "SearchTerm": "the",
     "Results": [
@@ -67,23 +140,92 @@ const twentyLeaguesOut = {
     ]
 }
 
-/*
- _   _ _   _ ___ _____   _____ _____ ____ _____ ____  
-| | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___| 
-| | | |  \| || |  | |     | | |  _| \___ \ | | \___ \ 
+/** Output object for tests 3 & 4 */
+const twentyLeaguesTwoOut = {
+    "SearchTerm": "and",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        },
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 10
+        }
+    ]
+}
+
+/** Output object for tests 5 & 6 */
+const canneryRowOut = {
+    "SearchTerm": "California",
+    "Results": [
+        {
+            "ISBN": "9780140187373",
+            "Page": 1,
+            "Line": 1
+        }
+    ]
+}
+
+/** Output object for tests 7 & 8 */
+const booksOut = {
+    "SearchTerm": "and",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        },
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 10
+        },
+        {
+            "ISBN": "9780140187373",
+            "Page": 1,
+            "Line": 3
+        },
+        {
+            "ISBN": "9780520020184",
+            "Page": 1,
+            "Line": 3
+        }
+    ]
+}
+
+/** Output object for test 11 */
+const booksTwoOut = {
+    "SearchTerm": "The",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 8
+        }
+    ]
+}
+
+/**
+ _   _ _   _ ___ _____   _____ _____ ____ _____ ____
+| | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___|
+| | | |  \| || |  | |     | | |  _| \___ \ | | \___ \
 | |_| | |\  || |  | |     | | | |___ ___) || |  ___) |
- \___/|_| \_|___| |_|     |_| |_____|____/ |_| |____/ 
-                                                      
+ \___/|_| \_|___| |_|     |_| |_____|____/ |_| |____/
+
  */
 
-/* We have provided two unit tests. They're really just `if` statements that 
- * output to the console. We've provided two tests as examples, and 
- * they should pass with a correct implementation of `findSearchTermInBooks`. 
- * 
+/**
+ * We have provided two unit tests. They're really just `if` statements that
+ * output to the console. We've provided two tests as examples, and
+ * they should pass with a correct implementation of `findSearchTermInBooks`.
+ *
  * Please add your unit tests below.
- * */
+ */
 
-/** We can check that, given a known input, we get a known output. */
+/** Checks that a known single hit in one book returns the correct result. */
 const test1result = findSearchTermInBooks("the", twentyLeaguesIn);
 if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
     console.log("PASS: Test 1");
@@ -93,12 +235,102 @@ if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
     console.log("Received:", test1result);
 }
 
-/** We could choose to check that we get the right number of results. */
-const test2result = findSearchTermInBooks("the", twentyLeaguesIn); 
+/** Checks that a known single hit in one book returns the correct number of results. */
+const test2result = findSearchTermInBooks("the", twentyLeaguesIn);
 if (test2result.Results.length == 1) {
     console.log("PASS: Test 2");
 } else {
     console.log("FAIL: Test 2");
     console.log("Expected:", twentyLeaguesOut.Results.length);
     console.log("Received:", test2result.Results.length);
+}
+
+/** Checks that a known multiple hit in one book returns the correct result. */
+const test3result = findSearchTermInBooks("and", twentyLeaguesIn);
+if (JSON.stringify(twentyLeaguesTwoOut) === JSON.stringify(test3result)) {
+    console.log("PASS: Test 3");
+} else {
+    console.log("FAIL: Test 3");
+    console.log("Expected:", twentyLeaguesTwoOut);
+    console.log("Received:", test3result);
+}
+
+/** Checks that a known multiple hit in one book returns the correct number of results. */
+const test4result = findSearchTermInBooks("and", twentyLeaguesIn);
+if (test4result.Results.length == 2) {
+    console.log("PASS: Test 4");
+} else {
+    console.log("FAIL: Test 4");
+    console.log("Expected:", twentyLeaguesTwoOut.Results.length);
+    console.log("Received:", test4result.Results.length);
+}
+
+/** Checks that a known single hit in an array of books returns the correct result. */
+const test5result = findSearchTermInBooks("California", booksIn);
+if (JSON.stringify(canneryRowOut) === JSON.stringify(test5result)) {
+    console.log("PASS: Test 5");
+} else {
+    console.log("FAIL: Test 5");
+    console.log("Expected:", canneryRowOut);
+    console.log("Received:", test5result);
+}
+
+/** Checks that a known single hit in an array of books returns the correct number of results. */
+const test6result = findSearchTermInBooks("California", booksIn);
+if (test6result.Results.length == 1) {
+    console.log("PASS: Test 6");
+} else {
+    console.log("FAIL: Test 6");
+    console.log("Expected:", canneryRowOut.Results.length);
+    console.log("Received:", test6result.Results.length);
+}
+
+/** Checks that a known multiple hit in an array of books returns the correct result. */
+const test7result = findSearchTermInBooks("and", booksIn);
+if (JSON.stringify(booksOut) === JSON.stringify(test7result)) {
+    console.log("PASS: Test 7");
+} else {
+    console.log("FAIL: Test 7");
+    console.log("Expected:", booksOut);
+    console.log("Received:", test7result);
+}
+
+/** Checks that a known multiple hit in an array of books returns the correct number of results. */
+const test8result = findSearchTermInBooks("and", booksIn);
+if (test8result.Results.length == 4) {
+    console.log("PASS: Test 8");
+} else {
+    console.log("FAIL: Test 8");
+    console.log("Expected:", booksOut.Results.length);
+    console.log("Received:", test8result.Results.length);
+}
+
+/** Checks that a word not in the books returns zero results. */
+const test9result = findSearchTermInBooks("car", booksIn);
+if (test9result.Results.length == 0) {
+    console.log("PASS: Test 9");
+} else {
+    console.log("FAIL: Test 9");
+    console.log("Expected:", 0);
+    console.log("Received:", test9result.Results.length);
+}
+
+/** Is case sensitive, so returns zero results for 'california'. */
+const test10result = findSearchTermInBooks("california", booksIn);
+if (test10result.Results.length == 0) {
+    console.log("PASS: Test 10");
+} else {
+    console.log("FAIL: Test 10");
+    console.log("Expected:", 0);
+    console.log("Received:", test10result.Results.length);
+}
+
+/** Is case sensitive, so returns expected results for 'The'. */
+const test11result = findSearchTermInBooks("The", booksIn);
+if (JSON.stringify(booksTwoOut) === JSON.stringify(test11result)) {
+    console.log("PASS: Test 11");
+} else {
+    console.log("FAIL: Test 11");
+    console.log("Expected:", booksTwoOut);
+    console.log("Received:", test11result);
 }
