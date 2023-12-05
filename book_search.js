@@ -196,6 +196,18 @@ const booksOut = {
     ]
 }
 
+/** Output object for test 11 */
+const booksTwoOut = {
+    "SearchTerm": "The",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 8
+        }
+    ]
+}
+
 /**
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____
 | | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___|
@@ -291,4 +303,34 @@ if (test8result.Results.length == 4) {
     console.log("FAIL: Test 8");
     console.log("Expected:", booksOut.Results.length);
     console.log("Received:", test8result.Results.length);
+}
+
+/** Checks that a word not in the books returns zero results. */
+const test9result = findSearchTermInBooks("car", booksIn);
+if (test9result.Results.length == 0) {
+    console.log("PASS: Test 9");
+} else {
+    console.log("FAIL: Test 9");
+    console.log("Expected:", 0);
+    console.log("Received:", test9result.Results.length);
+}
+
+/** Is case sensitive, so returns zero results for 'california'. */
+const test10result = findSearchTermInBooks("california", booksIn);
+if (test10result.Results.length == 0) {
+    console.log("PASS: Test 10");
+} else {
+    console.log("FAIL: Test 10");
+    console.log("Expected:", 0);
+    console.log("Received:", test10result.Results.length);
+}
+
+/** Is case sensitive, so returns expected results for 'The'. */
+const test11result = findSearchTermInBooks("The", booksIn);
+if (JSON.stringify(booksTwoOut) === JSON.stringify(test11result)) {
+    console.log("PASS: Test 11");
+} else {
+    console.log("FAIL: Test 11");
+    console.log("Expected:", booksTwoOut);
+    console.log("Received:", test11result);
 }
