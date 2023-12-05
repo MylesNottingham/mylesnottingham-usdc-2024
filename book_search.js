@@ -169,6 +169,33 @@ const canneryRowOut = {
     ]
 }
 
+/** Output object for tests 7 & 8 */
+const booksOut = {
+    "SearchTerm": "and",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        },
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 10
+        },
+        {
+            "ISBN": "9780140187373",
+            "Page": 1,
+            "Line": 3
+        },
+        {
+            "ISBN": "9780520020184",
+            "Page": 1,
+            "Line": 3
+        }
+    ]
+}
+
 /**
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____
 | | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___|
@@ -244,4 +271,24 @@ if (test6result.Results.length == 1) {
     console.log("FAIL: Test 6");
     console.log("Expected:", canneryRowOut.Results.length);
     console.log("Received:", test6result.Results.length);
+}
+
+/** Checks that a known multiple hit in an array of books returns the correct result. */
+const test7result = findSearchTermInBooks("and", booksIn);
+if (JSON.stringify(booksOut) === JSON.stringify(test7result)) {
+    console.log("PASS: Test 7");
+} else {
+    console.log("FAIL: Test 7");
+    console.log("Expected:", booksOut);
+    console.log("Received:", test7result);
+}
+
+/** Checks that a known multiple hit in an array of books returns the correct number of results. */
+const test8result = findSearchTermInBooks("and", booksIn);
+if (test8result.Results.length == 4) {
+    console.log("PASS: Test 8");
+} else {
+    console.log("FAIL: Test 8");
+    console.log("Expected:", booksOut.Results.length);
+    console.log("Received:", test8result.Results.length);
 }
