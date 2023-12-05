@@ -17,14 +17,30 @@
  * @param {string} searchTerm - The word or term we're searching for.
  * @param {JSON} scannedTextObj - A JSON object representing the scanned text.
  * @returns {JSON} - Search results.
- * */
- function findSearchTermInBooks(searchTerm, scannedTextObj) {
-    /** You will need to implement your search and
-     * return the appropriate object here. */
+ */
 
-    var result = {
-        "SearchTerm": "",
-        "Results": []
+function findSearchTermInBooks(searchTerm, scannedTextObj) {
+    /** You will need to implement your search and
+      * return the appropriate object here. */
+
+    const matches = [];
+
+    scannedTextObj.forEach(book => {
+        book.Content.forEach(content => {
+            if (content.Text.includes(searchTerm)) {
+                const match = {
+                    "ISBN": book.ISBN,
+                    "Page": content.Page,
+                    "Line": content.Line
+                };
+                matches.push(match);
+            }
+        });
+    });
+
+    const result = {
+        "SearchTerm": searchTerm,
+        "Results": matches
     };
 
     return result;
@@ -67,7 +83,7 @@ const twentyLeaguesOut = {
     ]
 }
 
-/*
+/**
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____
 | | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___|
 | | | |  \| || |  | |     | | |  _| \___ \ | | \___ \
@@ -76,12 +92,13 @@ const twentyLeaguesOut = {
 
  */
 
-/* We have provided two unit tests. They're really just `if` statements that
+/**
+ * We have provided two unit tests. They're really just `if` statements that
  * output to the console. We've provided two tests as examples, and
  * they should pass with a correct implementation of `findSearchTermInBooks`.
  *
  * Please add your unit tests below.
- * */
+ */
 
 /** We can check that, given a known input, we get a known output. */
 const test1result = findSearchTermInBooks("the", twentyLeaguesIn);
