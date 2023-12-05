@@ -83,6 +83,23 @@ const twentyLeaguesOut = {
     ]
 }
 
+/** Output object for test three */
+const twentyLeaguesTwoOut = {
+    "SearchTerm": "and",
+    "Results": [
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 9
+        },
+        {
+            "ISBN": "9780000528531",
+            "Page": 31,
+            "Line": 10
+        }
+    ]
+}
+
 /**
  _   _ _   _ ___ _____   _____ _____ ____ _____ ____
 | | | | \ | |_ _|_   _| |_   _| ____/ ___|_   _/ ___|
@@ -100,7 +117,7 @@ const twentyLeaguesOut = {
  * Please add your unit tests below.
  */
 
-/** We can check that, given a known input, we get a known output. */
+/** Checks that a known single hit in one book returns the correct result. */
 const test1result = findSearchTermInBooks("the", twentyLeaguesIn);
 if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
     console.log("PASS: Test 1");
@@ -110,7 +127,7 @@ if (JSON.stringify(twentyLeaguesOut) === JSON.stringify(test1result)) {
     console.log("Received:", test1result);
 }
 
-/** We could choose to check that we get the right number of results. */
+/** Checks that a known single hit in one book returns the correct number of results. */
 const test2result = findSearchTermInBooks("the", twentyLeaguesIn);
 if (test2result.Results.length == 1) {
     console.log("PASS: Test 2");
@@ -118,4 +135,24 @@ if (test2result.Results.length == 1) {
     console.log("FAIL: Test 2");
     console.log("Expected:", twentyLeaguesOut.Results.length);
     console.log("Received:", test2result.Results.length);
+}
+
+/** Checks that a known multiple hit in one book returns the correct result. */
+const test3result = findSearchTermInBooks("and", twentyLeaguesIn);
+if (JSON.stringify(twentyLeaguesTwoOut) === JSON.stringify(test3result)) {
+    console.log("PASS: Test 3");
+} else {
+    console.log("FAIL: Test 3");
+    console.log("Expected:", twentyLeaguesTwoOut);
+    console.log("Received:", test3result);
+}
+
+/** Checks that a known multiple hit in one book returns the correct number of results. */
+const test4result = findSearchTermInBooks("and", twentyLeaguesIn);
+if (test4result.Results.length == 2) {
+    console.log("PASS: Test 4");
+} else {
+    console.log("FAIL: Test 4");
+    console.log("Expected:", twentyLeaguesTwoOut.Results.length);
+    console.log("Received:", test4result.Results.length);
 }
